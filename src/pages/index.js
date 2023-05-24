@@ -1,13 +1,25 @@
-import { Card, Image, Text, Badge, Button, Group } from "@mantine/core";
+import { Card, Image, Text, Badge } from "@mantine/core";
+import { Input, Tooltip } from "@mantine/core";
+import { IconBrandTwitter, IconAlertCircle } from "@tabler/icons-react";
 import { Grid } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import { Modal, Button, Group } from "@mantine/core";
+import { useRef } from "react";
 
 export default function Home() {
-  const postApiCall = async function (e) {
+  const [opened, { open, close }] = useDisclosure(false);
+  const name = useRef(null);
+  const surname = useRef(null);
+
+  const postApiCall = async function () {
+    let ism = name.current.value;
+    let fam = surname.current.value;
+
     let res = await fetch("https://jsonplaceholder.typicode.com/posts", {
       method: "POST",
       body: JSON.stringify({
-        title: "Hello World",
-        des: "Lorem ipsum",
+        name: ism,
+        surname: fam,
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -18,22 +30,20 @@ export default function Home() {
     console.log(data);
   };
 
-  postApiCall();
+  // const deleteApiCall = async function (e) {
+  //   let res = await fetch("https://jsonplaceholder.typicode.com/posts/101", {
+  //     method: "DELETE",
 
-  const deleteApiCall = async function (e) {
-    let res = await fetch("https://jsonplaceholder.typicode.com/posts/101", {
-      method: "DELETE",
+  //     headers: {
+  //       "Content-type": "application/json; charset=UTF-8",
+  //     },
+  //   });
+  //   let data = await res.json();
 
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    });
-    let data = await res.json();
+  //   console.log(data);
+  // };
 
-    console.log(data);
-  };
-
-  deleteApiCall();
+  // deleteApiCall();
 
   // const getApiCall = async function (e) {
   //   let res = await fetch("https://jsonplaceholder.typicode.com/posts", {
@@ -48,6 +58,17 @@ export default function Home() {
 
   return (
     <>
+      <Modal opened={opened} onClose={close} title="Authentication">
+        <Input ref={name} placeholder="name" />
+        <Input ref={surname} placeholder="username" />
+        <Button onClick={() => postApiCall()} variant="outline">
+          bos
+        </Button>
+      </Modal>
+
+      <Group position="center">
+        <Button onClick={open}>Open modal</Button>
+      </Group>
       <Grid>
         <Grid.Col md={6} lg={4}>
           <Card shadow="sm" padding="lg" radius="md" withBorder>

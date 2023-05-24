@@ -13,6 +13,8 @@ import Link from "next/link";
 import React, { useRef, useState } from "react";
 
 const index = ({ product }) => {
+  const data = product.data
+  console.log(data);
   const [value, setValue] = useState("");
   const SearchApi = (e) => {
     setValue(e.target.value);
@@ -24,42 +26,33 @@ const index = ({ product }) => {
       </Box>
 
       <Grid justify="space-between">
-        {product
-          .filter((fill) =>
-            fill.title.toLowerCase().includes(value.toLowerCase())
-          )
-          .map((item) => {
-            return (
-              <Grid.Col md={6} xl={3} key={item.id}>
-                <Card shadow="sm" padding="lg" radius="md" withBorder>
-                  <Card.Section>
-                    <Image src={item.image} height={200} alt="Norway" />
-                  </Card.Section>
+        {data.filter((fill) => fill.text.toLowerCase().includes(value.toLowerCase())).map((item) => {
+          return (
+            <Grid.Col md={6} xl={3} key={item.id}>
+              <Card shadow="sm" padding="lg" radius="md" withBorder>
+                <Card.Section>
+                  <Image src={item.image.url} height={200} alt="Norway" />
+                </Card.Section>
 
-                  <Group position="apart" mt="md" mb="xs">
-                    <Text weight={500}>{item.title.slice(0, 30)}...</Text>
-                    <Badge variant="light">{item.price} $</Badge>
-                  </Group>
+                <Group position="apart" mt="md" mb="xs">
+                  <Text weight={500}>{item.text.slice(0, 30)}...</Text>
+                </Group>
 
-                  <Text size="sm" color="dimmed">
-                    {item.description.slice(0, 80)}
-                  </Text>
-
-                  <Link href={`/product/${item.id}`}>
-                    <Button
-                      variant="light"
-                      color="blue"
-                      fullWidth
-                      mt="md"
-                      radius="md"
-                    >
-                      Buy now
-                    </Button>
-                  </Link>
-                </Card>
-              </Grid.Col>
-            );
-          })}
+                <Link href={`/product/${item.id}`}>
+                  <Button
+                    variant="light"
+                    color="blue"
+                    fullWidth
+                    mt="md"
+                    radius="md"
+                  >
+                    Buy now
+                  </Button>
+                </Link>
+              </Card>
+            </Grid.Col>
+          );
+        })}
       </Grid>
     </div>
   );
@@ -68,7 +61,7 @@ const index = ({ product }) => {
 export default index;
 
 export async function getStaticProps() {
-  const res = await fetch("https://fakestoreapi.com/products");
+  const res = await fetch("https://onside-sport.uz/api/news/");
   const product = await res.json();
 
   return {
