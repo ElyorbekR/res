@@ -1,7 +1,51 @@
 import { Card, Image, Text, Badge, Button, Group } from "@mantine/core";
-import { Grid } from '@mantine/core';
+import { Grid } from "@mantine/core";
 
 export default function Home() {
+  const postApiCall = async function (e) {
+    let res = await fetch("https://jsonplaceholder.typicode.com/posts", {
+      method: "POST",
+      body: JSON.stringify({
+        title: "Hello World",
+        des: "Lorem ipsum",
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+    let data = await res.json();
+
+    console.log(data);
+  };
+
+  postApiCall();
+
+  const deleteApiCall = async function (e) {
+    let res = await fetch("https://jsonplaceholder.typicode.com/posts/101", {
+      method: "DELETE",
+
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+    let data = await res.json();
+
+    console.log(data);
+  };
+
+  deleteApiCall();
+
+  // const getApiCall = async function (e) {
+  //   let res = await fetch("https://jsonplaceholder.typicode.com/posts", {
+  //     method: "GET",
+  //   });
+  //   let data = await res.json();
+
+  //   console.log(data);
+  // };
+
+  // getApiCall();
+
   return (
     <>
       <Grid>
@@ -23,8 +67,9 @@ export default function Home() {
             </Group>
 
             <Text size="sm" color="dimmed">
-              With Fjord Tours you can explore more of the magical fjord landscapes
-              with tours and activities on and around the fjords of Norway
+              With Fjord Tours you can explore more of the magical fjord
+              landscapes with tours and activities on and around the fjords of
+              Norway
             </Text>
 
             <Button variant="light" color="blue" fullWidth mt="md" radius="md">
@@ -50,8 +95,9 @@ export default function Home() {
             </Group>
 
             <Text size="sm" color="dimmed">
-              With Fjord Tours you can explore more of the magical fjord landscapes
-              with tours and activities on and around the fjords of Norway
+              With Fjord Tours you can explore more of the magical fjord
+              landscapes with tours and activities on and around the fjords of
+              Norway
             </Text>
 
             <Button variant="light" color="blue" fullWidth mt="md" radius="md">
@@ -77,8 +123,9 @@ export default function Home() {
             </Group>
 
             <Text size="sm" color="dimmed">
-              With Fjord Tours you can explore more of the magical fjord landscapes
-              with tours and activities on and around the fjords of Norway
+              With Fjord Tours you can explore more of the magical fjord
+              landscapes with tours and activities on and around the fjords of
+              Norway
             </Text>
 
             <Button variant="light" color="blue" fullWidth mt="md" radius="md">
@@ -104,8 +151,9 @@ export default function Home() {
             </Group>
 
             <Text size="sm" color="dimmed">
-              With Fjord Tours you can explore more of the magical fjord landscapes
-              with tours and activities on and around the fjords of Norway
+              With Fjord Tours you can explore more of the magical fjord
+              landscapes with tours and activities on and around the fjords of
+              Norway
             </Text>
 
             <Button variant="light" color="blue" fullWidth mt="md" radius="md">
@@ -131,8 +179,9 @@ export default function Home() {
             </Group>
 
             <Text size="sm" color="dimmed">
-              With Fjord Tours you can explore more of the magical fjord landscapes
-              with tours and activities on and around the fjords of Norway
+              With Fjord Tours you can explore more of the magical fjord
+              landscapes with tours and activities on and around the fjords of
+              Norway
             </Text>
 
             <Button variant="light" color="blue" fullWidth mt="md" radius="md">
@@ -159,8 +208,9 @@ export default function Home() {
             </Group>
 
             <Text size="sm" color="dimmed">
-              With Fjord Tours you can explore more of the magical fjord landscapes
-              with tours and activities on and around the fjords of Norway
+              With Fjord Tours you can explore more of the magical fjord
+              landscapes with tours and activities on and around the fjords of
+              Norway
             </Text>
 
             <Button variant="light" color="blue" fullWidth mt="md" radius="md">
@@ -168,9 +218,7 @@ export default function Home() {
             </Button>
           </Card>
         </Grid.Col>
-
       </Grid>
-
     </>
   );
 }
